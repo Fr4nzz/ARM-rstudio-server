@@ -1,59 +1,85 @@
-#!/bin/bash
-# This script installs R and builds RStudio Desktop for ARM Chromebooks running debian stretch
+#!/usr/bin/env bash
+#This script installs R and builds RStudio Server for aarch64 Android running Ubuntu 20.04
 
-# Install R; Debian stretch has latest version
+set -euo pipefail
+
+#Set RStudio version
+VERS='v2022.02.3+492'
+BUILD_DIR="${HOME}"
+
+echo "Installing sudo"
+if ! [ -x "$(command -v sudo)" ]; then
+  apt update
+  apt install sudo
+fi
+
+#Install R
+echo "Installing R"
+if ! [ -x "$(command -v R)" ]; then
+  sudo apt-get -y  install apt-transport-https software-properties-common
+  sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+  sudo add-apt-repository -y 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/'
+  sudo apt update
+  sudo apt-get -y install r-base r-base-dev
+fi
+
+#Install RStudio build dependencies
+echo "Installing system packages"
+sudo apt-get install -y git pandoc ghc cabal-install wget
+sudo apt-get install -y build-essential pkg-config fakeroot cmake ant apparmor-utils clang debsigs dpkg-sig expect gnupg1
+sudo apt-get install -y uuid-dev libssl-dev libbz2-dev zlib1g-dev libpam-dev libacl1-dev
+sudo apt-get install -y libapparmor1 libboost-all-dev libpango1.0-dev libjpeg62 libattr1-dev libcap-dev libclang-6.0-dev libclang-dev
+sudo apt-get install -y libcurl4-openssl-dev libegl1-mesa libfuse2 libgl1-mesa-dev libgtk-3-0 libssl-dev libuser1-dev libxslt1-dev
+sudo apt-get install -y lsof patchelf python rrdtool software-properties-common libpq-dev libsqlite3-dev
+
+#Installing JAVA
+# Java 8 (not in official repo for bionic)
+echo "Installing Java"
+sudo add-apt-repository -y ppa:openjdk-r/ppa
 sudo apt-get update
-sudo apt-get install -y r-base r-base-dev
+sudo apt-get -y install openjdk-8-jdk
+#sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 
-# Set RStudio version
-VERS=v0.99.473
+#Download RStudio source
 
-# Download RStudio source
-cd ~/Downloads/
-wget -O $VERS https://github.com/rstudio/rstudio/tarball/$VERS
-mkdir ~/Downloads/rstudio-$VERS
-tar xvf ~/Downloads/$VERS -C ~/Downloads/rstudio-$VERS --strip-components 1
-rm ~/Downloads/$VERS
+echo "Downloading RStudio ${VERS}"
+cd "${BUILD_DIR}"
+wget -nc "https://github.com/rstudio/rstudio/archive/refs/tags/${VERS}.tar.gz"
+mkdir -p "rstudio-${VERS}"
+tar xvf "${VERS}.tar.gz" -C "rstudio-${VERS}" --strip-components 1
 
-# Run environment preparation scripts
-sudo apt-get install -y openjdk-7-jdk
-cd ~/Downloads/rstudio-$VERS/dependencies/linux/
-./install-dependencies-debian --exclude-qt-sdk
-
-# Run common environment preparation scripts
-sudo apt-get install -y git
-# No arm build for pandoc, so install outside of common script
-sudo apt-get install -y pandoc
-sudo apt-get install -y libcurl4-openssl-dev
-
-cd ~/Downloads/rstudio-$VERS/dependencies/common/
-#./install-common
-./install-gwt
+#Run common environment preparation scripts
+cd "${BUILD_DIR}/rstudio-${VERS}/dependencies/common/"
+mkdir -p "${BUILD_DIR}/rstudio-${VERS}/dependencies/common/pandoc"
+cd "${BUILD_DIR}/rstudio-${VERS}/dependencies/common/"
+echo "Installing dependencies"
+echo "Installing dictionaries"
 ./install-dictionaries
+echo "Installing mathjax"
 ./install-mathjax
+echo "Installing boost"
 ./install-boost
-#./install-pandoc
-./install-libclang
+echo "Installing packages"
 ./install-packages
+echo "Installing soci"
+#Workaround so that cmake could find boost libraries (error seen in prooted ubuntu - Andronix)
+sudo ln -s /usr/include /include
+./install-soci
 
-# Add pandoc folder to override build check
-mkdir ~/Downloads/rstudio-$VERS/dependencies/common/pandoc
-
-# Get Closure Compiler and replace compiler.jar
-cd ~/Downloads
-wget http://dl.google.com/closure-compiler/compiler-latest.zip
-unzip compiler-latest.zip
-rm COPYING README.md compiler-latest.zip
-sudo mv closure-compiler*.jar ~/Downloads/rstudio-$VERS/src/gwt/tools/compiler/compiler.jar
-
-# Configure cmake and build RStudio
-cd ~/Downloads/rstudio-$VERS/
-mkdir build
-sudo cmake -DRSTUDIO_TARGET=Server -DCMAKE_BUILD_TYPE=Release
+#Configure cmake and build RStudio
+echo "Building RStudio"
+cd "${BUILD_DIR}/rstudio-${VERS}/"
+mkdir -p build
+CXXFLAGS="-march=native" cmake -DRSTUDIO_TARGET=Server -DCMAKE_BUILD_TYPE=Release
+echo "Installing RStudio"
 sudo make install
 
 # Additional install steps
 sudo useradd -r rstudio-server
+## Fix internet access for new user created (issue seen in chrooted ubuntu - termux-container from Moe-hacker)
+inetGroupName=$(cat /etc/group | grep 999 | cut -d: -f1)
+usermod -a -G $inetGroupName rstudio-server
+## End of fix
 sudo cp /usr/local/lib/rstudio-server/extras/init.d/debian/rstudio-server /etc/init.d/rstudio-server
 sudo chmod +x /etc/init.d/rstudio-server 
 sudo ln -f -s /usr/local/lib/rstudio-server/bin/rstudio-server /usr/sbin/rstudio-server
@@ -64,15 +90,14 @@ sudo apt-get install -y locales
 sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
-#echo 'export LANG=en_US.UTF-8' >> ~/.bashrc
-#echo 'export LANGUAGE=en_US.UTF-8' >> ~/.bashrc
 
-# Clean the system of packages used for building
-sudo apt-get autoremove -y cabal-install ghc openjdk-7-jdk pandoc libboost-all-dev
-sudo rm -r -f ~/Downloads/rstudio-$VERS
+#Clean the system of packages used for building
+echo "Removing installed packages"
+sudo apt-get autoremove -y cabal-install ghc pandoc libboost-all-dev
+sudo rm -rf "${BUILD_DIR}/rstudio-${VERS}"
+rm "${BUILD_DIR}/${VERS}.tar.gz"
 sudo apt-get autoremove -y
 
 # Start the server
 sudo rstudio-server start
-
-# Go to localhost:8787
+# Open internet browser and go to localhost:8787
