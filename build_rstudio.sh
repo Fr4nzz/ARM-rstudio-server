@@ -78,9 +78,9 @@ sudo useradd -r rstudio-server
 inetGroupName=$(cat /etc/group | grep 999 | cut -d: -f1)
 usermod -a -G $inetGroupName rstudio-server
 ## End of fix
-sudo cp /usr/local/lib/rstudio-server/extras/init.d/debian/rstudio-server /etc/init.d/rstudio-server
+sudo cp /usr/local/extras/init.d/debian/rstudio-server /etc/init.d/rstudio-server
 sudo chmod +x /etc/init.d/rstudio-server 
-sudo ln -f -s /usr/local/lib/rstudio-server/bin/rstudio-server /usr/sbin/rstudio-server
+sudo ln -f -s /usr/local/bin/rstudio-server /usr/sbin/rstudio-server
 sudo chmod 777 -R /usr/local/lib/R/site-library/
 
 # Setup locale
