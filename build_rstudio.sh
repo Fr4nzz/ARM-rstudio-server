@@ -25,7 +25,7 @@ fi
 
 #Install RStudio build dependencies
 echo "Installing system packages"
-sudo apt-get install -y git pandoc ghc cabal-install wget
+sudo apt-get install -y git pandoc ghc cabal-install wget psmisc
 sudo apt-get install -y build-essential pkg-config fakeroot cmake ant apparmor-utils clang debsigs dpkg-sig expect gnupg1
 sudo apt-get install -y uuid-dev libssl-dev libbz2-dev zlib1g-dev libpam-dev libacl1-dev libyaml-cpp-dev
 sudo apt-get install -y libapparmor1 libboost-all-dev libpango1.0-dev libjpeg62 libattr1-dev libcap-dev libclang-dev
