@@ -104,6 +104,18 @@ sudo useradd -s /bin/bash -m -G sudo test $user
 echo Insert password for $user
 sudo passwd test $user
 
+# Add new user for login
+read -p "Add new user to login from RStudio? [yn]" answer
+if [[ $answer = y ]] ; then
+  read -p "Insert user name:" user
+  sudo useradd -s /bin/bash -m -G sudo test $user
+  echo "$user  ALL=(ALL) ALL" | sudo tee -a /etc/sudoers > /dev/null
+  echo '$user  ALL=(ALL:ALL) ALL' >> /etc/sudoers.tmp
+  echo Insert password for $user
+  sudo passwd test $user
+fi
+
 # Start the server
 sudo rstudio-server start
 echo Open internet browser and go to localhost:8787
+echo To stop the server run "sudo rstudio-server stop"
