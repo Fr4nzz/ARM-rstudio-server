@@ -70,10 +70,8 @@ echo "Installing soci"
 #Workaround so that cmake could find boost libraries (error seen in prooted ubuntu - Andronix)
 #sudo ln -s /usr/include /include
 ./install-soci
-echo "Installing pandoc"
-./install-pandoc
-echo "Installing yaml-cpp"
-./install-yaml-cpp
+echo "Installing common"
+./install-common
 #Workaround issue seen in ubuntu installed from Andronix
 #ln -snf /usr/share/ant/bin/ant /bin/ant
 
