@@ -30,7 +30,12 @@ sudo apt-get install -y build-essential pkg-config fakeroot cmake ant apparmor-u
 sudo apt-get install -y uuid-dev libssl-dev libbz2-dev zlib1g-dev libpam-dev libacl1-dev
 sudo apt-get install -y libapparmor1 libboost-all-dev libpango1.0-dev libjpeg62 libattr1-dev libcap-dev libclang-6.0-dev libclang-dev
 sudo apt-get install -y libcurl4-openssl-dev libegl1-mesa libfuse2 libgl1-mesa-dev libgtk-3-0 libssl-dev libuser1-dev libxslt1-dev
-sudo apt-get install -y lsof patchelf python rrdtool software-properties-common libpq-dev libsqlite3-dev
+sudo apt-get install -y lsof patchelf rrdtool software-properties-common libpq-dev libsqlite3-dev
+
+#Install Python
+sudo add-apt-repository -y ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install -y python3.9
 
 #Installing JAVA
 # Java 8 (not in official repo for bionic)
