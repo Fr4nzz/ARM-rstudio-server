@@ -3,9 +3,10 @@ Build script for rstudio-server on an aarch64 Android device
 
 This is built on the excellent work of [dashaub/ARM-RStudio](https://github.com/dashaub/ARM-RStudio) and [jrowen/ARM-rstudio-server](https://github.com/jrowen/ARM-rstudio-server).
 
-## Build
-This script has been used to successfully build RStudio Server on the Poco F3 (aarch64) running Ubuntu 20.04 via [chroot](https://github.com/Moe-hacker/termux-container) or via [proot](https://github.com/AndronixApp/AndronixOrigin). Chroot runs linux commands natively so it is faster than proot but it requires root. 
+## Tested Ubuntu installations
+This script has been used to successfully build RStudio Server on the Poco F3 (aarch64) running Ubuntu 20.04 via [chroot](https://github.com/Moe-hacker/termux-container), ([using this image](http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/)), or Ubuntu 22.04 via [proot](https://github.com/MFDGaming/ubuntu-in-termux) (image in script). Chroot runs linux commands natively so it is faster than proot but it requires root. That is, if you have a rooted Android device, you should use chroot. The script does not work in ubuntu installed from [Andronix](https://github.com/AndronixApp/AndronixOrigin) since it uses an old Ubuntu image with symlink issues on some libraries required for building.
 
+## Build
 In Ubuntu run the command below to build the server
 ```
 git clone https://github.com/Fr4nzz/ARM-rstudio-server
