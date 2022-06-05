@@ -96,6 +96,14 @@ sudo rm -rf "${BUILD_DIR}/rstudio-${VERS}"
 rm "${BUILD_DIR}/${VERS}.tar.gz"
 sudo apt-get autoremove -y
 
+#Add user for login to RStudio
+echo Adding username for login
+echo Insert username:
+read user
+sudo useradd -s /bin/bash -m -G sudo test $user
+echo Insert password for $user
+sudo passwd test $user
+
 # Start the server
 sudo rstudio-server start
 echo Open internet browser and go to localhost:8787
