@@ -10,7 +10,7 @@ BUILD_DIR="${HOME}"
 echo "Installing sudo"
 if ! [ -x "$(command -v sudo)" ]; then
   apt update
-  apt install sudo
+  apt -y install sudo
 fi
 
 #Install R
@@ -27,8 +27,8 @@ fi
 echo "Installing system packages"
 sudo apt-get install -y git pandoc ghc cabal-install wget
 sudo apt-get install -y build-essential pkg-config fakeroot cmake ant apparmor-utils clang debsigs dpkg-sig expect gnupg1
-sudo apt-get install -y uuid-dev libssl-dev libbz2-dev zlib1g-dev libpam-dev libacl1-dev
-sudo apt-get install -y libapparmor1 libboost-all-dev libpango1.0-dev libjpeg62 libattr1-dev libcap-dev libclang-6.0-dev libclang-dev
+sudo apt-get install -y uuid-dev libssl-dev libbz2-dev zlib1g-dev libpam-dev libacl1-dev libyaml-cpp-dev
+sudo apt-get install -y libapparmor1 libboost-all-dev libpango1.0-dev libjpeg62 libattr1-dev libcap-dev libclang-dev
 sudo apt-get install -y libcurl4-openssl-dev libegl1-mesa libfuse2 libgl1-mesa-dev libgtk-3-0 libssl-dev libuser1-dev libxslt1-dev
 sudo apt-get install -y lsof patchelf rrdtool software-properties-common libpq-dev libsqlite3-dev
 
@@ -70,6 +70,10 @@ echo "Installing soci"
 #Workaround so that cmake could find boost libraries (error seen in prooted ubuntu - Andronix)
 #sudo ln -s /usr/include /include
 ./install-soci
+echo "Installing pandoc"
+./install-pandoc
+echo "Installing yaml-cpp"
+./install-yaml-cpp
 #Workaround issue seen in ubuntu installed from Andronix
 #ln -snf /usr/share/ant/bin/ant /bin/ant
 
