@@ -9,7 +9,7 @@ This script has been used to successfully build RStudio Server on the Poco F3 (a
 In Ubuntu run the command below to build the server
 ```
 git clone https://github.com/Fr4nzz/ARM-rstudio-server
-bash ARM-rstudio-server/ARM-RStudio.sh
+bash ARM-rstudio-server/build_rstudio.sh
 ```
 The build may take several hours to complete, it's recommended to keep the device with the screen turned on for faster compilation.
 
