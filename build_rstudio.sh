@@ -63,8 +63,10 @@ echo "Installing packages"
 ./install-packages
 echo "Installing soci"
 #Workaround so that cmake could find boost libraries (error seen in prooted ubuntu - Andronix)
-sudo ln -s /usr/include /include
+#sudo ln -s /usr/include /include
 ./install-soci
+#Workaround issue seen in ubuntu installed from Andronix
+#ln -snf /usr/share/ant/bin/ant /bin/ant
 
 #Configure cmake and build RStudio
 echo "Building RStudio"
