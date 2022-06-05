@@ -57,22 +57,11 @@ tar xvf "${VERS}.tar.gz" -C "rstudio-${VERS}" --strip-components 1
 cd "${BUILD_DIR}/rstudio-${VERS}/dependencies/common/"
 mkdir -p "${BUILD_DIR}/rstudio-${VERS}/dependencies/common/pandoc"
 cd "${BUILD_DIR}/rstudio-${VERS}/dependencies/common/"
-echo "Installing dependencies"
-echo "Installing dictionaries"
-./install-dictionaries
-echo "Installing mathjax"
-./install-mathjax
-echo "Installing boost"
-./install-boost
-echo "Installing packages"
-./install-packages
-echo "Installing soci"
-#Workaround so that cmake could find boost libraries (error seen in prooted ubuntu - Andronix)
+#Workaround so that cmake could find boost libraries when installing soci in ubuntu from Andronix
 #sudo ln -s /usr/include /include
-./install-soci
-echo "Installing common"
+echo "Installing dependencies"
 ./install-common
-#Workaround issue seen in ubuntu installed from Andronix
+#Workaround cmake could not find ant in ubuntu from Andronix
 #ln -snf /usr/share/ant/bin/ant /bin/ant
 
 #Configure cmake and build RStudio
@@ -109,4 +98,4 @@ sudo apt-get autoremove -y
 
 # Start the server
 sudo rstudio-server start
-# Open internet browser and go to localhost:8787
+echo Open internet browser and go to localhost:8787
