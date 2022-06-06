@@ -80,7 +80,7 @@ sudo make install
 # Additional install steps
 sudo useradd -r rstudio-server
 ## Fix internet access for new user created (issue seen in chrooted ubuntu - termux-container from Moe-hacker)
-inetGroupName=$(cat /etc/group | grep 999 | cut -d: -f1)
+inetGroupName=$(cat /etc/group | grep 3003 | cut -d: -f1)
 usermod -a -G $inetGroupName rstudio-server
 ## End of fix
 sudo cp /usr/local/extras/init.d/debian/rstudio-server /etc/init.d/rstudio-server
@@ -100,14 +100,6 @@ sudo apt-get autoremove -y cabal-install ghc pandoc libboost-all-dev
 sudo rm -rf "${BUILD_DIR}/rstudio-${VERS}"
 rm "${BUILD_DIR}/${VERS}.tar.gz"
 sudo apt-get autoremove -y
-
-#Add user for login to RStudio
-echo Adding username for login
-echo Insert username:
-read user
-sudo useradd -s /bin/bash -m -G sudo test $user
-echo Insert password for $user
-sudo passwd test $user
 
 # Add new user for login
 read -p "Add new user to login from RStudio? [yn]" answer
