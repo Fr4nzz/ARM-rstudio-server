@@ -113,6 +113,9 @@ if [[ $answer = y ]] ; then
   echo "$user  ALL=(ALL) ALL" | sudo tee -a /etc/sudoers > /dev/null
   echo Insert password for $user
   sudo passwd $user
+  ## Fix internet access for new user created (issue seen in chrooted ubuntu - termux-container from Moe-hacker)
+  inetGroupName=$(cat /etc/group | grep 3003 | cut -d: -f1)
+  usermod -a -G $inetGroupName $user
   # Access phone files from RStudio
   ln -s /sdcard /home/${user}/sdcard
 fi
