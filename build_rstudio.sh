@@ -115,7 +115,7 @@ if [[ $answer = y ]] ; then
   sudo passwd $user
   ## Fix internet access for new user created (issue seen in chrooted ubuntu - termux-container from Moe-hacker)
   inetGroupName=$(cat /etc/group | grep 3003 | cut -d: -f1)
-  usermod -a -G $inetGroupName $user
+  sudo usermod -a -G $inetGroupName $user
   # Access phone files from RStudio
   ln -s /sdcard /home/${user}/sdcard
 fi
