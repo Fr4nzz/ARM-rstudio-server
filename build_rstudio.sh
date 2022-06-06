@@ -109,6 +109,8 @@ if [[ $answer = y ]] ; then
   echo "$user  ALL=(ALL) ALL" | sudo tee -a /etc/sudoers > /dev/null
   echo Insert password for $user
   sudo passwd $user
+  # Access phone files from RStudio
+  ln -s /sdcard /home/${user}/sdcard
 fi
 
 # Start the server
