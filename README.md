@@ -11,8 +11,8 @@ The script does not work in ubuntu installed from [Andronix](https://github.com/
 ## Build
 In Ubuntu run the command below to build the server
 ```
-git clone https://github.com/Fr4nzz/ARM-rstudio-server
-bash ARM-rstudio-server/build_rstudio.sh
+wget https://raw.githubusercontent.com/Fr4nzz/ARM-rstudio-server/master/build_rstudio.sh
+bash build_rstudio.sh
 ```
 The build may take several hours to complete, it's recommended to keep the device with the screen turned on for faster compilation.
 
