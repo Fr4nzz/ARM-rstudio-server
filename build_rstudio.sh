@@ -11,6 +11,11 @@ echo "Installing sudo"
 if ! [ -x "$(command -v sudo)" ]; then
   apt update
   apt -y install sudo
+  #Fix sudo
+  if [[ $(cat /etc/hosts|grep ${HOSTNAME}) = "" ]];then
+    echo 127.0.0.1 ${HOSTNAME} > /etc/hosts
+    echo "sudo fixed"
+  fi
 fi
 
 #Install R
