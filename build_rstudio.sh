@@ -21,6 +21,7 @@ fi
 #Install R
 echo "Installing R"
 if ! [ -x "$(command -v R)" ]; then
+  sudo apt install -y tzdata # ask for user input about region and timezone early
   sudo apt-get -y  install apt-transport-https software-properties-common
   sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
   sudo add-apt-repository -y 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/'
