@@ -95,11 +95,14 @@ export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
 #Clean the system of packages used for building
-echo "Removing installed packages"
-sudo apt-get autoremove -y cabal-install ghc pandoc libboost-all-dev
-sudo rm -rf "${BUILD_DIR}/rstudio-${VERS}"
-rm "${BUILD_DIR}/${VERS}.tar.gz"
-sudo apt-get autoremove -y
+read -p "Delete files used to build? [yn]" answer
+if [[ $answer = y ]] ; then
+  echo "Removing installed packages"
+  sudo apt-get autoremove -y cabal-install ghc pandoc libboost-all-dev
+  sudo rm -rf "${BUILD_DIR}/rstudio-${VERS}"
+  rm "${BUILD_DIR}/${VERS}.tar.gz"
+  sudo apt-get autoremove -y
+fi
 
 # Add new user for login
 read -p "Add new user to login from RStudio? [yn]" answer
