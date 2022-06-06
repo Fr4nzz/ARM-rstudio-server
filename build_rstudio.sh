@@ -111,7 +111,7 @@ if [[ $answer = y ]] ; then
   sudo useradd -s /bin/bash -m -G sudo $user
   echo "$user  ALL=(ALL) ALL" | sudo tee -a /etc/sudoers > /dev/null
   echo Insert password for $user
-  sudo passwd test $user
+  sudo passwd $user
 fi
 
 # Start the server
