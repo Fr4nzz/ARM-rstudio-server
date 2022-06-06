@@ -108,9 +108,8 @@ sudo passwd test $user
 read -p "Add new user to login from RStudio? [yn]" answer
 if [[ $answer = y ]] ; then
   read -p "Insert user name:" user
-  sudo useradd -s /bin/bash -m -G sudo test $user
+  sudo useradd -s /bin/bash -m -G sudo $user
   echo "$user  ALL=(ALL) ALL" | sudo tee -a /etc/sudoers > /dev/null
-  echo '$user  ALL=(ALL:ALL) ALL' >> /etc/sudoers.tmp
   echo Insert password for $user
   sudo passwd test $user
 fi
