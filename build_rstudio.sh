@@ -120,6 +120,17 @@ if [[ $answer = y ]] ; then
   ln -s /sdcard /home/${user}/sdcard
 fi
 
+#Workaround for non root users
+echo For non root users login as root
+read -p "Allow root user login to RStudio? [yn]" answer
+if [[ $answer = y ]] ; then
+  sudo mkdir -p /etc/rstudio/
+  sudo touch /etc/rstudio/rserver.conf
+  sudo echo "auth-minimum-user-id=0" > /etc/rstudio/rserver.conf
+  echo Set password for root
+  sudo passwd root
+fi
+
 # Start the server
 sudo rstudio-server start
 echo Open internet browser and go to localhost:8787
