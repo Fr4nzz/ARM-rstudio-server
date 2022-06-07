@@ -4,9 +4,8 @@ Build script for rstudio-server on an aarch64 Android device
 This is built on the excellent work of [dashaub/ARM-RStudio](https://github.com/dashaub/ARM-RStudio) and [jrowen/ARM-rstudio-server](https://github.com/jrowen/ARM-rstudio-server).
 
 ## Tested Ubuntu installations
-This script has been used to successfully build RStudio Server on the Poco F3 (aarch64) running Ubuntu 20.04 via chroot using [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container), (using the latest arm64 image from [here](http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/)), or Ubuntu 22.04 via proot using [termux/proot-distro](https://github.com/termux/proot-distro).
+This script has been used to successfully build RStudio Server on the Poco F3 (aarch64) running Ubuntu 20.04 via chroot using [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container), (using the latest arm64 image from [here](http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/)), or Ubuntu 22.04 via proot using [termux/proot-distro](https://github.com/termux/proot-distro) (compilation works but RStudio does not work).
 Chroot runs linux commands natively so it is faster than proot but it requires root. That is, if you have a rooted Android device, you should use chroot.
-The script does not work in ubuntu installed from [Andronix](https://github.com/AndronixApp/AndronixOrigin) since it uses an old Ubuntu image with symlink issues on some libraries required for building.
 
 ## Setup Ubuntu
 Download [termux from the F-Droid store](https://f-droid.org/en/packages/com.termux/) open termux and run the following
