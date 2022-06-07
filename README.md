@@ -19,7 +19,8 @@ Run ```su``` then exit root running ```exit```
 Now you can install [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container) following its instructions
 
 ### Non rooted android devices (~~Not Working~~ Workaround login as root)
-RStudio is successfully compiled but you have to login as root 
+RStudio is successfully compiled but you have to login as root.
+
 First install ubuntu using [termux/proot-distro](https://github.com/termux/proot-distro)
 ```
 pkg install proot-distro
