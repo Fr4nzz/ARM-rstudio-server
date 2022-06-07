@@ -15,7 +15,9 @@ termux-setup-storage
 apt update && apt upgrade # Answer y to update repos and packages
 ```
 ### Rooted android devices
-Install [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container) following its instructions
+Make sure termux has root privileges before installing termux-container to avoid bugs
+Run ```su``` then exit root running ```exit```
+Now you can install [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container) following its instructions
 
 ### Non rooted android devices
 Run the following to install ubuntu using [termux/proot-distro](https://github.com/termux/proot-distro)
