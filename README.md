@@ -19,8 +19,9 @@ Make sure termux has root privileges before installing termux-container to avoid
 Run ```su``` then exit root running ```exit```
 Now you can install [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container) following its instructions
 
-### Non rooted android devices
-Run the following to install ubuntu using [termux/proot-distro](https://github.com/termux/proot-distro)
+### Non rooted android devices (Not Working)
+RStudio is successfully compiled but does not work. I think that RStudio wants more resources than default for non root (see [ulimit in termux](https://www.reddit.com/r/termux/comments/ilrri3/ulimit_n_2048_not_working_inside_prootdistro/) and [related issue in RStudio](https://github.com/rocker-org/rocker-versioned/issues/187#issuecomment-572619013)).
+If you still want to try, first install ubuntu using [termux/proot-distro](https://github.com/termux/proot-distro)
 ```
 pkg install proot-distro
 proot-distro install ubuntu
@@ -33,6 +34,7 @@ Use "prubuntu" command to start ubuntu
 ## Build
 In Ubuntu run the commands below to build the server
 ```
+apt update && apt upgrade -y && apt install -y wget
 wget https://raw.githubusercontent.com/Fr4nzz/ARM-rstudio-server/master/build_rstudio.sh
 bash build_rstudio.sh
 ```
