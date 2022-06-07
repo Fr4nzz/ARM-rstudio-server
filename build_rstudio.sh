@@ -121,7 +121,7 @@ if [[ $answer = y ]] ; then
 fi
 
 #Workaround for non root users
-echo For non root users login as root
+echo For non rooted Android devices login as root
 read -p "Allow root user login to RStudio? [yn]" answer
 if [[ $answer = y ]] ; then
   sudo mkdir -p /etc/rstudio/
