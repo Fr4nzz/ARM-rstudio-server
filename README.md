@@ -18,7 +18,7 @@ apt update && apt upgrade # Answer y to update repos and packages
 Install [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container) following its instructions
 
 ### Non rooted android devices
-Run the following to install ubuntu
+Run the following to install ubuntu using [termux/proot-distro](https://github.com/termux/proot-distro)
 ```
 pkg install proot-distro
 proot-distro install ubuntu
