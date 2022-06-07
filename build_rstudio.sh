@@ -124,3 +124,4 @@ fi
 sudo rstudio-server start
 echo Open internet browser and go to localhost:8787
 echo To stop the server run "sudo rstudio-server stop"
+echo If you cannot see your files in the sdcard folder run "termux-setup-storage" from termux (exit ubuntu)
