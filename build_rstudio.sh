@@ -138,4 +138,3 @@ sudo rstudio-server start
 ipv4=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
 echo Open internet browser and go to localhost:8787 or if you want to login from another device of the same network go to $ipv4:8787
 echo To stop the server run "sudo rstudio-server stop"
-echo If you cannot see your files in the sdcard folder run "termux-setup-storage" from termux (exit ubuntu)
