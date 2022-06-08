@@ -38,7 +38,12 @@ apt update && apt upgrade -y && apt install -y wget
 wget https://raw.githubusercontent.com/Fr4nzz/ARM-rstudio-server/master/build_rstudio.sh
 bash build_rstudio.sh
 ```
-The build may take several hours to complete, it's recommended to set the screen timeout to infinite to avoid cpu undervolting (longer compilation time).
+The build may take several hours to complete, so avoid CPU going into sleep mode by executing from termux (not from ubuntu)
+```
+termux-wake-lock
+```.
+Alternatively, press the button AQCUIRE WAKELOCK from the notifications panel.
+You should also active wake lock when connecting to RStudio from another device to avoid the phone's CPU going into sleep mode.
 
 The `VERS` variable in the script can be updated to build different versions of the server.  The latest version number can be found on the rstudio server [download page](https://www.rstudio.com/products/rstudio/download-server/), and note that this will likely differ from the latest desktop version.
 
