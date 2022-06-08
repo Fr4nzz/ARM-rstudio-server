@@ -129,6 +129,8 @@ if [[ $answer = y ]] ; then
   sudo echo "auth-minimum-user-id=0" > /etc/rstudio/rserver.conf
   echo Set password for root
   sudo passwd root
+  # Access phone files from RStudio
+  ln -s /sdcard "${HOME}/sdcard"
 fi
 
 # Start the server
