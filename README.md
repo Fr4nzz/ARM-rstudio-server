@@ -41,7 +41,7 @@ bash build_rstudio.sh
 The build may take several hours to complete, so avoid CPU going into sleep mode by executing from termux (not from ubuntu)
 ```
 termux-wake-lock
-```.
+```
 Alternatively, press the button AQCUIRE WAKELOCK from the notifications panel.
 You should also active wake lock when connecting to RStudio from another device to avoid the phone's CPU going into sleep mode.
 
