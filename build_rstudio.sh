@@ -31,7 +31,7 @@ fi
 
 #Install RStudio build dependencies
 echo "Installing system packages"
-sudo apt-get install -y git pandoc ghc cabal-install wget psmisc
+sudo apt-get install -y git pandoc ghc cabal-install wget psmisc iproute2
 sudo apt-get install -y build-essential pkg-config fakeroot cmake ant apparmor-utils clang debsigs dpkg-sig expect gnupg1
 sudo apt-get install -y uuid-dev libssl-dev libbz2-dev zlib1g-dev libpam-dev libacl1-dev libyaml-cpp-dev
 sudo apt-get install -y libapparmor1 libboost-all-dev libpango1.0-dev libjpeg62 libattr1-dev libcap-dev libclang-dev
@@ -135,6 +135,7 @@ fi
 
 # Start the server
 sudo rstudio-server start
-echo Open internet browser and go to localhost:8787
+ipv4=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
+echo Open internet browser and go to localhost:8787 or if you want to login from another device of the same network go to $ipv4:8787
 echo To stop the server run "sudo rstudio-server stop"
 echo If you cannot see your files in the sdcard folder run "termux-setup-storage" from termux (exit ubuntu)
