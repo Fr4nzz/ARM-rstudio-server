@@ -2,7 +2,7 @@
 ~~Build~~ Install binaries for rstudio-server on an aarch64 Android device.
 
 ## Tested Ubuntu installations
-This script has been used to successfully build RStudio Server on the Poco F5 (aarch64) running Ubuntu jammy via chroot using [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container), or via proot using [termux/proot-distro](https://github.com/termux/proot-distro).
+This script has been used to successfully build RStudio Server on the Poco F5 (aarch64) running Ubuntu jammy via chroot or proot using [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container)
 Chroot runs linux commands natively so it is faster than proot but it requires root. That is, if you have a rooted Android device, you should use chroot.
 
 ## Setup Termux
@@ -10,7 +10,8 @@ Download [termux from the F-Droid store](https://f-droid.org/en/packages/com.ter
 ```
 termux-setup-storage
 termux-wake-lock
-apt update && apt upgrade # Answer y to update repos and packages
+pkg update && pkg upgrade # Answer y to update repos and packages
+pkg install git
 ```
 
 To avoid CPU going into sleep mode, making the installation and rstudio slow if the screen turns off, we used ```termux-setup-storage```
