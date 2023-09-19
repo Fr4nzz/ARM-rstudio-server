@@ -61,6 +61,24 @@ ln -s /sdcard "${HOME}/sdcard"
 sudo rstudio-server restart
 ```
 
+### Rooted devices login
+For rooted devices you can login as root using the code above or create a new user and login with those credentials using the following code:
+```
+read -p "Add new user to login from RStudio? [yn]" answer
+if [[ $answer = y ]] ; then
+  read -p "Insert user name:" user
+  sudo useradd -s /bin/bash -m -G sudo $user
+  echo "$user  ALL=(ALL) ALL" | sudo tee -a /etc/sudoers > /dev/null
+  echo Insert password for $user
+  sudo passwd $user
+  ## Fix internet access for new user created (issue seen in chrooted ubuntu - termux-container from Moe-hacker)
+  inetGroupName=$(cat /etc/group | grep 3003 | cut -d: -f1)
+  sudo usermod -a -G $inetGroupName $user
+  # Access phone files from RStudio
+  ln -s /sdcard /home/${user}/sdcard
+fi
+```
+
 ## Launching RStudio Server
 After the server has been built and installed, the easiest way to start the server from a crosh shell using the commands below
 ```
