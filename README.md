@@ -85,3 +85,9 @@ After the server has been built and installed, the easiest way to start the serv
 sudo rstudio-server start
 ```
 Finally, from a new Chrome tab navigate to `localhost:8787` (from your phone only) or from `your.phone's.ip.address:8787` (example `192.168.1.2:8787`) and log in with the users you set.
+
+## Stopping RStudio Server
+just run:
+```
+sudo rstudio-server stop
+```
