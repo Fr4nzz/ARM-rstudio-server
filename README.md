@@ -1,5 +1,5 @@
 # ARM-rstudio-server
-<del>Build<del> Install binaries script for rstudio-server on an aarch64 Android device.
+<del> Build <del> Install binaries script for rstudio-server on an aarch64 Android device.
 
 ## Tested Ubuntu installations
 This script has been used to successfully build RStudio Server on the Poco F5 (aarch64) running Ubuntu jammy via chroot using [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container), or via proot using [termux/proot-distro](https://github.com/termux/proot-distro).
