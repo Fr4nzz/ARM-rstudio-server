@@ -48,6 +48,19 @@ sudo gdebi rstudio-server-${VERS}-arm64.deb
 
 The `VERS` variable in the script can be updated to build different versions of the server.  The latest version number can be found on [download page](https://dailies.rstudio.com/), and clicking on the arm64 link in the RStudio Server Ubuntu 22 section.
 
+#### Non-rooted devices fix
+For non-rooted devices you have to login as the root user of the ubuntu environment. To do so run:
+```
+sudo mkdir -p /etc/rstudio/
+sudo touch /etc/rstudio/rserver.conf
+sudo echo "auth-minimum-user-id=0" >> /etc/rstudio/rserver.conf
+# Set password for root
+sudo passwd root
+# Access phone files from RStudio
+ln -s /sdcard "${HOME}/sdcard"
+sudo rstudio-server restart
+```
+
 ## Launching RStudio Server
 After the server has been built and installed, the easiest way to start the server from a crosh shell using the commands below
 ```
