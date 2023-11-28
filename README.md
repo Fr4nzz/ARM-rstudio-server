@@ -75,7 +75,7 @@ For non-rooted devices you have to login as the root user of the ubuntu environm
 ```
 sudo mkdir -p /etc/rstudio/
 sudo touch /etc/rstudio/rserver.conf
-sudo echo "auth-minimum-user-id=0" >> /etc/rstudio/rsession.conf
+sudo echo "auth-minimum-user-id=0" >> /etc/rstudio/rserver.conf
 # Set password for root
 sudo passwd root
 # Access phone files from RStudio
