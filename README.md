@@ -105,6 +105,8 @@ fi
 After the server has been built and installed, the easiest way to start the server from a crosh shell using the commands below
 ```
 sudo rstudio-server start
+ipv4=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
+echo Open internet browser and go to localhost:8787 or if you want to login from another device of the same network go to $ipv4:8787
 ```
 Finally, from a new Chrome tab navigate to `localhost:8787` (from your phone only) or from `your.phone's.ip.address:8787` (example `192.168.1.2:8787`) and log in with the users you set.
 
