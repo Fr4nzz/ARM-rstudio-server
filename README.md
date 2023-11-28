@@ -2,7 +2,7 @@
 ~~Build~~ Install binaries for rstudio-server on an aarch64 Android device.
 
 ## Tested Ubuntu installations
-This script has been used to successfully build RStudio Server on the Poco F5 (aarch64) running Ubuntu jammy via chroot or proot using [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container)
+This script has been used to successfully build RStudio Server on the Poco F5 (aarch64) running Ubuntu jammy via chroot or proot using [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container). If Termux doesn't work you can use [termux/proot-distro](https://github.com/termux/proot-distro).
 Chroot runs linux commands natively so it is faster than proot but it requires root. That is, if you have a rooted Android device, you should use chroot.
 
 ## Setup Termux
@@ -36,18 +36,37 @@ make install
 2. Run ```container``` and install ubuntu by runing the ```new``` command, then set parameters for the container like the name (used to access it later). For type choose chroot(or proot if you do not have root), mount sdcard (to see your phone files), absolute path you can use ```/data/ubuntu``` (or ```/data/data/com.termux/files/home/ubuntu``` for non rooted users) for OS type ```ubuntu``` version ```jammy```
 3. To start ubuntu run ```login (your container name)```
 
+Install [termux/proot-distro](https://github.com/termux/proot-distro)
+```
+pkg install proot-distro
+proot-distro install ubuntu
+echo "proot-distro login ubuntu --isolated --bind /sdcard:/sdcard" >$PREFIX/bin/prubuntu
+chmod +x $PREFIX/bin/prubuntu
+prubuntu
+```
+Use "prubuntu" command to start ubuntu
+
 ## Install R and RStudio binaries
 In Ubuntu run the commands below
 ```
-VERS='2023.09.0-445'
-apt update && apt upgrade -y && apt install -y wget
-sudo apt install r-base r-base-dev -y
-apt install gdebi-core
-wget https://s3.amazonaws.com/rstudio-ide-build/server/jammy/arm64/rstudio-server-${VERS}-arm64.deb
-sudo gdebi rstudio-server-${VERS}-arm64.deb
+# Update and upgrade the system packages and install necessary packages
+apt update && apt upgrade -y
+apt install -y sudo curl wget gdebi-core r-base
+
+# Fetch the latest RStudio Server download link from the webpage
+DOWNLOAD_URL=$(curl -s https://dailies.rstudio.com/rstudio/cherry-blossom/server/jammy-arm64/ | grep -oP 'href="\K(https://s3.amazonaws.com/rstudio-ide-build/server/jammy/arm64/rstudio-server-[0-9]+\.[0-9]+\.[0-9]+-[0-9]+-arm64\.deb)' | head -1)
+
+# Extract the version number from the URL for later installation
+VERS=$(echo $DOWNLOAD_URL | grep -oP 'rstudio-server-\K[0-9]+\.[0-9]+\.[0-9]+-[0-9]+(?=-arm64\.deb)')
+
+# Download the RStudio Server package
+wget $DOWNLOAD_URL
+
+# Install the downloaded package
+sudo gdebi -n rstudio-server-${VERS}-arm64.deb
 ```
 
-The `VERS` variable in the script can be updated to build different versions of the server.  The latest version number can be found on [download page](https://dailies.rstudio.com/), and clicking on the arm64 link in the RStudio Server Ubuntu 22 section.
+This script scrapes the latest build of rstudio server available. The `VERS` variable in the script can be updated to build different versions of the server. The latest version number can be found on [download page](https://dailies.rstudio.com/), and clicking on the arm64 link in the RStudio Server Ubuntu 22 section.
 
 #### Non-rooted devices fix
 For non-rooted devices you have to login as the root user of the ubuntu environment. To do so run:
