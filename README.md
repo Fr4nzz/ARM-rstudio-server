@@ -24,17 +24,19 @@ You should also active wake lock before starting an RStudio session to avoid a l
 Make sure termux has root privileges before installing termux-container to avoid bugs
 Run ```su``` then exit root running ```exit```
 
-Install [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container) following its instructions, which as of september 18th of 2023 are:
+Install [Moe-hacker/termux-container](https://github.com/Moe-hacker/termux-container) currently we have to use v8.0 of termux-container, use this code:
 1. Install termux-container
 ```
-git clone https://github.com/Moe-hacker/termux-container
-cd termux-container
-pkg install make
-make
-make install
+git clone -b v8.0 https://github.com/Moe-hacker/termux-container
+cd termux-container/package
+chmod -R 755 DEBIAN
+chmod 777 data/data/com.termux/files/usr/bin/container
+dpkg -b . ~/termux-container.deb
+apt update
+apt install ~/termux-container.deb
 ```
-2. Run ```container``` and install ubuntu by runing the ```new``` command, then set parameters for the container like the name (used to access it later). For type choose chroot(or proot if you do not have root), mount sdcard (to see your phone files), absolute path you can use ```/data/ubuntu``` (or ```/data/data/com.termux/files/home/ubuntu``` for non rooted users) for OS type ```ubuntu``` version ```jammy```
-3. To start ubuntu run ```login (your container name)```
+2. Run ```container``` and install ubuntu by runing the ```new``` command, then set parameters for the container like the name (used to access it later). For type choose chroot(or proot if you do not have root), mount sdcard (to see your phone files), absolute path you can use ```/data/ubuntu``` (or ```/data/data/com.termux/files/home/ubuntu``` for non rooted users), for image path you can use  ```/data/ubuntuim``` (or ```/data/data/com.termux/files/home/ubuntuim``` for non rooted users), for OS type ```ubuntu``` version ```jammy```. The automatic option to download the rootfs (ubuntu image) is broken so manually enter the link to download the ubuntu image ```https://mirrors.tuna.tsinghua.edu.cn/lxc-images/images/ubuntu/jammy/arm64/default/20230829_07%3A57/rootfs.tar.xz```
+3. To start ubuntu run ```container``` and select run container.
 
 Install [termux/proot-distro](https://github.com/termux/proot-distro)
 ```
