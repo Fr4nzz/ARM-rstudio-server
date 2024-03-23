@@ -14,7 +14,7 @@ pkg update && pkg upgrade # Answer y to update repos and packages
 pkg install git
 ```
 
-To avoid CPU going into sleep mode, making the installation and rstudio slow if the screen turns off, we used ```termux-setup-storage```
+To avoid CPU going into sleep mode, making the installation and rstudio slow if the screen turns off, we used ```termux-wake-lock```
 Alternatively, press the button AQCUIRE WAKELOCK from the notifications panel.
 You should also active wake lock before starting an RStudio session to avoid a lagging experience.
 
@@ -35,7 +35,7 @@ dpkg -b . ~/termux-container.deb
 apt update
 apt install ~/termux-container.deb
 ```
-2. Run ```container``` and install ubuntu by runing the ```new``` command, then set parameters for the container like the name (used to access it later). For type choose chroot(or proot if you do not have root), mount sdcard (to see your phone files), absolute path you can use ```/data/ubuntu``` (or ```/data/data/com.termux/files/home/ubuntu``` for non rooted users), for image path you can use  ```/data/ubuntuim``` (or ```/data/data/com.termux/files/home/ubuntuim``` for non rooted users), for OS type ```ubuntu``` version ```jammy```. The automatic option to download the rootfs (ubuntu image) is broken so manually enter the link to download the ubuntu image ```https://mirrors.tuna.tsinghua.edu.cn/lxc-images/images/ubuntu/jammy/arm64/default/20240323_08%3A12/rootfs.tar.xz``` or get latest release by going to ```https://mirrors.tuna.tsinghua.edu.cn/lxc-images/images/ubuntu/jammy/``` abd search for latest file rootfs.tar.xz
+2. Run ```container``` and install ubuntu by runing the ```new``` command, then set parameters for the container like the name (used to access it later). For type choose chroot(or proot if you do not have root), mount sdcard (to see your phone files), absolute path you can use ```/data/ubuntu``` (or ```/data/data/com.termux/files/home/ubuntu``` for non rooted users), for image path you can use  ```/data/ubuntuim``` (or ```/data/data/com.termux/files/home/ubuntuim``` for non rooted users), for OS type ```ubuntu``` version ```jammy```. The automatic option to download the rootfs (ubuntu image) is broken so manually enter the link to download the ubuntu image ```https://mirrors.tuna.tsinghua.edu.cn/lxc-images/images/ubuntu/jammy/arm64/default/20240323_08%3A12/rootfs.tar.xz``` or get latest release by going to ```https://mirrors.tuna.tsinghua.edu.cn/lxc-images/images/ubuntu/jammy/``` and search for latest file rootfs.tar.xz
 3. To start ubuntu run ```container``` and select run container.
 
 Install [termux/proot-distro](https://github.com/termux/proot-distro)
