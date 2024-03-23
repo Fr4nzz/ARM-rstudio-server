@@ -56,7 +56,7 @@ apt update && apt upgrade -y
 apt install -y sudo curl wget gdebi-core r-base
 
 # Fetch the latest RStudio Server download link from the webpage
-DOWNLOAD_URL=$(curl -s https://dailies.rstudio.com/rstudio/cherry-blossom/server/jammy-arm64/ | grep -oP 'href="\K(https://s3.amazonaws.com/rstudio-ide-build/server/jammy/arm64/rstudio-server-[0-9]+\.[0-9]+\.[0-9]+-[0-9]+-arm64\.deb)' | head -1)
+DOWNLOAD_URL=$(curl -s https://dailies.rstudio.com/rstudio/chocolate-cosmos/server/jammy-arm64/ | grep -oP 'href="\K(https://s3.amazonaws.com/rstudio-ide-build/server/jammy/arm64/rstudio-server-[0-9]+\.[0-9]+\.[0-9]+-[0-9]+-arm64\.deb)' | head -1)
 
 # Extract the version number from the URL for later installation
 VERS=$(echo $DOWNLOAD_URL | grep -oP 'rstudio-server-\K[0-9]+\.[0-9]+\.[0-9]+-[0-9]+(?=-arm64\.deb)')
